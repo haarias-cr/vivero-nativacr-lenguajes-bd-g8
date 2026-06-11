@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.env
+src/db_config.py
+.venv/
+venv/
+*.log
+.DS_Store
+Thumbs.db
+~$*
+*.tmp
