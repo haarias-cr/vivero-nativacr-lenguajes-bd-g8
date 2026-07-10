@@ -9,16 +9,16 @@ Sistema para un vivero de plantas nativas: inventario, pedidos y cuidados por lo
 
 ## Organización del trabajo colaborativo
 
-El desarrollo del proyecto se realizó de manera colaborativa mediante Microsoft
-Teams. Por este medio, los integrantes distribuyeron las tareas, revisaron los
-avances, analizaron la implementación de los objetos de base de datos y
-tomaron decisiones técnicas en conjunto, incluida la migración del motor
-MariaDB a Firebird para cumplir con el requerimiento de paquetes.
+Desarrollamos el proyecto de manera colaborativa mediante Microsoft Teams. Por
+este medio distribuimos las tareas, revisamos los avances, analizamos la
+implementación de los objetos de base de datos y tomamos decisiones técnicas
+en conjunto, incluida la migración del motor MariaDB a Firebird para cumplir
+con el requerimiento de paquetes.
 
 Aunque los commits del repositorio aparecen registrados bajo una única cuenta
-de GitHub, esta se utilizó como cuenta centralizadora para integrar y publicar
-los cambios acordados por el grupo. La autoría y revisión del contenido
-corresponde a los tres integrantes, quienes participaron en la planificación,
+de GitHub, la usamos como cuenta centralizadora para integrar y publicar los
+cambios que acordamos como grupo. La autoría y revisión del contenido nos
+corresponde a los tres integrantes: participamos juntos en la planificación,
 documentación, validación y desarrollo del sistema.
 
 | Integrante | Responsabilidades principales |
