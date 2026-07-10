@@ -1,6 +1,6 @@
 # Código fuente
 
-Programa en Python 3 con conexión a MariaDB.
+Programa en Python 3 con conexión a Firebird, vía procedimientos almacenados.
 
 | Archivo | Descripción |
 |---------|-------------|
