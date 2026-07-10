@@ -11,10 +11,21 @@ Sistema para un vivero de plantas nativas: inventario, pedidos y cuidados por lo
 
 | Carpeta | Descripción |
 |---------|-------------|
-| `docs/` | Avance I, Avance II y documentación del proyecto |
-| `sql/` | Scripts de la base de datos (Firebird, Avance II) |
-| `sql/mariadb_avance1/` | Scripts originales del Avance I (MariaDB) |
-| `src/` | Programa en Python 3 |
+| `docs/` | Documentos de los avances (Word/PDF), diagramas y notas de la migración a Firebird |
+| `sql/` | Esquema, datos semilla, usuario de aplicación, permisos y diccionario de datos (Firebird) |
+| `sql/04_paquetes/` | Los 10 paquetes PL/SQL: procedimientos, funciones y cursores |
+| `sql/mariadb_avance1/` | Scripts originales del Avance I sobre MariaDB, conservados como referencia |
+| `src/` | Aplicación de consola en Python 3 (conexión y menú) |
+
+## Diagramas
+
+**Modelo relacional** — 8 tablas en tercera forma normal:
+
+![Diagrama relacional de Vivero NativaCR](docs/fig1.png)
+
+**Arquitectura de acceso a datos** — la aplicación solo llama procedimientos de los 10 paquetes; estos son los únicos con acceso a las tablas, vistas y triggers:
+
+![Arquitectura de acceso a datos](docs/fig2.png)
 
 ## Motor de base de datos
 
