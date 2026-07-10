@@ -7,9 +7,25 @@ Sistema para un vivero de plantas nativas: inventario, pedidos y cuidados por lo
 
 **Integrantes:** Natalia Aguero, Harvi Arias, Camilo Montero
 
-Los commits quedan bajo un solo usuario de GitHub, pero el trabajo se organizó
-en conjunto como grupo: nos coordinamos por Microsoft Teams para repartir
-tareas, revisar avances y decidir cambios como la migración a Firebird.
+## Organización del trabajo colaborativo
+
+El desarrollo del proyecto se realizó de manera colaborativa mediante Microsoft
+Teams. Por este medio, los integrantes distribuyeron las tareas, revisaron los
+avances, analizaron la implementación de los objetos de base de datos y
+tomaron decisiones técnicas en conjunto, incluida la migración del motor
+MariaDB a Firebird para cumplir con el requerimiento de paquetes.
+
+Aunque los commits del repositorio aparecen registrados bajo una única cuenta
+de GitHub, esta se utilizó como cuenta centralizadora para integrar y publicar
+los cambios acordados por el grupo. La autoría y revisión del contenido
+corresponde a los tres integrantes, quienes participaron en la planificación,
+documentación, validación y desarrollo del sistema.
+
+| Integrante | Responsabilidades principales |
+|---|---|
+| Natalia Agüero Segura | Documentación, revisión de requerimientos y validación del diccionario de datos |
+| Harvi Arias Peña | Administración del repositorio, integración del código y configuración de Firebird |
+| Camilo Montero Moya | Revisión de procedimientos, pruebas funcionales y validación del modelo relacional |
 
 ## Contenido del repositorio
 
