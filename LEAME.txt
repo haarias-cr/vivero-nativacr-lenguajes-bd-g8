@@ -1,0 +1,74 @@
+LEAME - Sistema de Gestion para Vivero NativaCR (Grupo 8)
+=========================================================
+
+Repositorio con todo el codigo:
+https://github.com/haarias-cr/vivero-nativacr-lenguajes-bd-g8
+
+REQUISITOS
+----------
+- Firebird 4 (servidor y utilidades). En RHEL/CentOS: dnf install firebird firebird-utils
+  (via repositorio EPEL). En Windows puede usarse el instalador oficial de firebirdsql.org.
+- Python 3.10 o superior.
+- Paquete Python firebird-driver (se instala con requirements.txt, paso 4).
+
+NOTA DE CONFIGURACION (instalacion EPEL en Linux)
+-------------------------------------------------
+El paquete EPEL trae por defecto AuthServer = Srp256 comentado y UserManager = Srp,
+lo que hace fallar el login remoto con un error generico aunque la contrasena sea
+correcta. Si ocurre, editar /etc/firebird/firebird.conf y fijar:
+
+    AuthServer = Srp
+
+y reiniciar el servicio (systemctl restart firebird).
+
+PASOS PARA LEVANTAR LA BASE DE DATOS
+------------------------------------
+Todos los scripts estan en la carpeta sql/ del repositorio y se ejecutan en orden
+con isql-fb (en Windows el ejecutable se llama isql). Sustituir <password_sysdba>
+por la contrasena de SYSDBA definida al instalar Firebird.
+
+1. Crear el esquema (el script crea la base vivero_nativacr.fdb):
+       isql-fb -user SYSDBA -password '<password_sysdba>' -i sql/01_schema.sql
+
+2. Cargar datos semilla, usuario de aplicacion, vistas y triggers:
+       DB=localhost:/var/lib/firebird/data/vivero_nativacr.fdb
+       isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i sql/02_seed.sql
+       isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i sql/03_usuario_app.sql
+       isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i sql/06_vistas.sql
+       isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i sql/07_triggers.sql
+
+   Nota: en sql/03_usuario_app.sql sustituir <password_vivero_app> por la
+   contrasena que se le quiera asignar al usuario de la aplicacion.
+
+3. Crear los 10 paquetes y otorgar permisos:
+       for f in sql/04_paquetes/*.sql; do
+         isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i "$f"
+       done
+       isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i sql/08_permisos_app.sql
+
+4. Configurar y ejecutar la aplicacion Python:
+       cd src
+       pip install -r requirements.txt
+       cp db_config.example.py db_config.py
+       (editar db_config.py: ruta de la base, usuario vivero_app y su contrasena)
+       python test_conexion.py     -> prueba de conexion y flujo completo de negocio
+       python vivero_app.py        -> menu principal del sistema
+
+VERIFICACION RAPIDA
+-------------------
+Con el usuario vivero_app solo funcionan los procedimientos de los paquetes;
+un SELECT directo a una tabla es rechazado por permisos. Por ejemplo:
+
+    SELECT * FROM pkg_reportes.sp_reporte_inventario_activo;   -> OK
+    SELECT * FROM zonas_biologicas;                            -> sin permiso (esperado)
+
+El diccionario de datos se genera con:
+    isql-fb -user SYSDBA -password '<password_sysdba>' $DB -i sql/05_diccionario_datos.sql
+
+ESTRUCTURA DEL REPOSITORIO
+--------------------------
+sql/                 esquema, datos, usuario, vistas, triggers y diccionario (Firebird)
+sql/04_paquetes/     los 10 paquetes PSQL (procedimientos, funciones y cursores)
+sql/mariadb_avance1/ scripts originales del Avance I sobre MariaDB (referencia)
+src/                 aplicacion de consola en Python 3
+docs/                diagramas y notas de la migracion a Firebird
